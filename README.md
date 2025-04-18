@@ -2,6 +2,8 @@
 
 A universal SQL MCP (Model Context Protocol).
 
+[releases]: https://github.com/thesoulless/usqlmcp/releases "Releases"
+
 ## Features
 
 - **Tools**
