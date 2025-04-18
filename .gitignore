@@ -1,0 +1,28 @@
+# Binaries and build artifacts
+bin/
+build/
+*.exe
+*.dll
+*.so
+*.dylib
+*.out
+*.o
+*.a
+
+# Misc
+*.bak
+
+# Logs and debugging
+*.log
+*.trace
+*.prof
+
+# Test and coverage files
+*.test
+*.cover
+coverage.out
+
+# Temporary files
+*.tmp
+*.temp
+*.~*
