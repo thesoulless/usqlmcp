@@ -2,6 +2,10 @@
 
 A universal SQL MCP (Model Context Protocol).
 
+## Acknowledgments
+
+This project depends on [usql](https://github.com/xo/usql), a universal command-line interface for SQL databases.
+
 ## Features
 
 - **Tools**
