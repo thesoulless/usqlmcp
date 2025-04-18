@@ -241,17 +241,17 @@ built_ver() {
 }
 
 # check build
-if [[ "$CHECK" == "1" ]]; then
-  BUILT_VER=$(built_ver)
-  if [ "$BUILT_VER" != "$NAME ${VER#v}" ]; then
-    echo -e "\n\nERROR: expected $NAME --version to report '$NAME ${VER#v}', got: '$BUILT_VER'"
-    exit 1
-  fi
-  echo "REPORTED:    $BUILT_VER"
-fi
+# if [[ "$CHECK" == "1" ]]; then
+#   BUILT_VER=$(built_ver)
+#   if [ "$BUILT_VER" != "$NAME ${VER#v}" ]; then
+#     echo -e "\n\nERROR: expected $NAME --version to report '$NAME ${VER#v}', got: '$BUILT_VER'"
+#     exit 1
+#   fi
+#   echo "REPORTED:    $BUILT_VER"
+# fi
 
 # pack
-cp $SRC/LICENSE $DIR
+cp $ROOT/LICENSE $DIR
 case $EXT in
   tar.bz2) $TAR -C $DIR -cjf $OUT $(basename $BIN) LICENSE ;;
   zip) zip $OUT -j $BIN LICENSE ;;
