@@ -11,7 +11,6 @@ import (
 )
 
 func TestListTables(t *testing.T) {
-	// Create a temporary SQLite database file
 	dbFile := "test_list_tables.db"
 	defer os.Remove(dbFile)
 
@@ -21,7 +20,6 @@ func TestListTables(t *testing.T) {
 	}
 	defer db.Close()
 
-	// Create test tables
 	createTableQueries := []string{
 		`CREATE TABLE table1 (id INTEGER PRIMARY KEY);`,
 		`CREATE TABLE table2 (name TEXT);`,
@@ -33,13 +31,11 @@ func TestListTables(t *testing.T) {
 		}
 	}
 
-	// Execute the ListTables function
 	tables, err := api.ListTables(db)
 	if err != nil {
 		t.Fatalf("ListTables failed: %v", err)
 	}
 
-	// Validate the result
 	expected := []string{"table1", "table2"}
 	assert.ElementsMatch(t, expected, tables, "table list does not match expected output")
 }

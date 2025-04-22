@@ -11,7 +11,6 @@ import (
 )
 
 func TestReadQueryWithSQLite(t *testing.T) {
-	// Create a temporary SQLite database file
 	dbFile := "test.db"
 	defer os.Remove(dbFile)
 
@@ -21,28 +20,24 @@ func TestReadQueryWithSQLite(t *testing.T) {
 	}
 	defer db.Close()
 
-	// Create a test table
 	createTableQuery := `CREATE TABLE users (id INTEGER PRIMARY KEY, name TEXT, age INTEGER);`
 	_, err = db.Exec(createTableQuery)
 	if err != nil {
 		t.Fatalf("failed to create table: %v", err)
 	}
 
-	// Insert test data
 	insertDataQuery := `INSERT INTO users (name, age) VALUES ('Alice', 30), ('Bob', 25);`
 	_, err = db.Exec(insertDataQuery)
 	if err != nil {
 		t.Fatalf("failed to insert data: %v", err)
 	}
 
-	// Execute the ReadQuery function
 	selectQuery := `SELECT * FROM users;`
 	results, err := api.ReadQuery(db, selectQuery)
 	if err != nil {
 		t.Fatalf("ReadQuery failed: %v", err)
 	}
 
-	// Validate the results
 	expected := []api.Row{
 		{"id": int64(1), "name": "Alice", "age": int64(30)},
 		{"id": int64(2), "name": "Bob", "age": int64(25)},

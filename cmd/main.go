@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"flag"
 	"fmt"
@@ -127,22 +128,54 @@ func main() {
 		return mcp.NewToolResultText(fmt.Sprintf("%v", tables)), nil
 	})
 
-	s.AddTool(mcp.NewTool(
-		"describe_table",
-		mcp.WithDescription("Retrieve schema information for a specific table."),
-		mcp.WithString("table_name", mcp.Required(), mcp.Description("The name of the table to describe.")),
-	), func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		tableName, ok := request.Params.Arguments["table_name"].(string)
-		if !ok {
-			return nil, errors.New("table_name must be a string")
+	s.AddResourceTemplate(mcp.NewResourceTemplate(
+		"schema://{table}",
+		"Get schema information for a specific table",
+		mcp.WithTemplateDescription("Returns schema information for a specific table"),
+		mcp.WithTemplateMIMEType("application/json"),
+	), func(ctx context.Context, request mcp.ReadResourceRequest) ([]mcp.ResourceContents, error) {
+		// Extract table name from URI
+		tableName := request.Params.URI[len("schema://"):]
+		if tableName == "" {
+			return nil, errors.New("table name is required in schema URI")
 		}
 
-		schema, err := api.DescribeTable(db, tableName)
+		schema, err := api.GetTableSchema(ctx, db, tableName)
 		if err != nil {
-			return nil, fmt.Errorf("failed to describe table: %w", err)
+			return nil, fmt.Errorf("failed to get table schema: %w", err)
 		}
 
-		return mcp.NewToolResultText(fmt.Sprintf("%v", schema)), nil
+		jsonData, err := json.MarshalIndent(schema, "", "  ")
+		if err != nil {
+			return nil, fmt.Errorf("failed to marshal schema to JSON: %w", err)
+		}
+
+		return []mcp.ResourceContents{&mcp.TextResourceContents{
+			URI:      request.Params.URI,
+			MIMEType: "application/json",
+			Text:     string(jsonData),
+		}}, nil
+	})
+
+	s.AddResource(mcp.NewResource(
+		"schema://all",
+		"Get schema information for all tables",
+	), func(ctx context.Context, request mcp.ReadResourceRequest) ([]mcp.ResourceContents, error) {
+		metadata, err := api.GetAllSchema(ctx, db)
+		if err != nil {
+			return nil, fmt.Errorf("failed to get all schema: %w", err)
+		}
+
+		jsonData, err := json.MarshalIndent(metadata, "", "  ")
+		if err != nil {
+			return nil, fmt.Errorf("failed to marshal metadata to JSON: %w", err)
+		}
+
+		return []mcp.ResourceContents{&mcp.TextResourceContents{
+			URI:      request.Params.URI,
+			MIMEType: "application/json",
+			Text:     string(jsonData),
+		}}, nil
 	})
 
 	if err := server.ServeStdio(s); err != nil {

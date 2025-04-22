@@ -109,7 +109,12 @@ require (
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/dlclark/regexp2 v1.11.5 // indirect
 	github.com/dnephin/pflag v1.0.7 // indirect
+	github.com/duckdb/duckdb-go-bindings v0.1.13 // indirect
+	github.com/duckdb/duckdb-go-bindings/darwin-amd64 v0.1.8 // indirect
 	github.com/duckdb/duckdb-go-bindings/darwin-arm64 v0.1.8 // indirect
+	github.com/duckdb/duckdb-go-bindings/linux-amd64 v0.1.8 // indirect
+	github.com/duckdb/duckdb-go-bindings/linux-arm64 v0.1.8 // indirect
+	github.com/duckdb/duckdb-go-bindings/windows-amd64 v0.1.8 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/dvsekhvalnov/jose2go v1.8.0 // indirect
 	github.com/edsrzf/mmap-go v1.2.0 // indirect
@@ -189,6 +194,7 @@ require (
 	github.com/kr/text v0.2.0 // indirect
 	github.com/kylelemons/godebug v1.1.0 // indirect
 	github.com/lib/pq v1.10.9 // indirect
+	github.com/marcboeker/go-duckdb/arrowmapping v0.0.6 // indirect
 	github.com/marcboeker/go-duckdb/mapping v0.0.6 // indirect
 	github.com/marcboeker/go-duckdb/v2 v2.1.0 // indirect
 	github.com/mattn/go-adodb v0.0.1 // indirect
