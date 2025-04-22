@@ -13,6 +13,10 @@ A universal SQL MCP (Model Context Protocol).
   - `list_tables`: Retrieve a list of all table names in the database.
   - `describe_table`: Retrieve schema information for a specific table.
 
+- **Resources**
+  - `schema://all`: Get schema information for all tables
+  - `schema://{table}`: Get schema information for a specific table
+
 ## Installing
 `usqlmcp` is available [via Release][]
 
