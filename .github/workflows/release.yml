@@ -1,5 +1,8 @@
 name: Release
-on: push
+on:
+  push:
+    tags:
+      - 'v*'
 env:
   APP: usqlmcp
   VER: ${{ github.ref_name }}
