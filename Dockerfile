@@ -15,10 +15,10 @@ RUN go mod download
 
 # Copy source code and make build script executable
 COPY . .
-RUN chmod +x build.sh
+RUN chmod +x /app/build.sh
 
 # Build the application
-RUN ./build.sh -v ${VERSION} -a ${ARCH}
+RUN cd /app && ./build.sh -v ${VERSION} -a ${ARCH}
 
 # Use a smaller image for the final container
 FROM alpine:latest
