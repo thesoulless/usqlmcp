@@ -207,7 +207,11 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
             VERSION=${{ env.VER }}
-            ARCH=${{ matrix.arch }}
+            ARCH=amd64
+          platforms: |
+            linux/amd64
+            linux/arm64
+            linux/arm/v7
 
   draft_release:
     name: Draft Release
