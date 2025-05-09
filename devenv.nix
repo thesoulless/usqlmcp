@@ -16,6 +16,7 @@ in
   # https://devenv.sh/packages/
   packages = [
     pkgs.git
+    pkgs.nixd
   ];
 
   # https://devenv.sh/languages/

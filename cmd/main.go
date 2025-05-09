@@ -59,6 +59,18 @@ func main() {
 	)
 
 	s.AddTool(mcp.NewTool(
+		"db_type",
+		mcp.WithDescription("Get the database type based on the DSN."),
+	), func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		dbType, err := api.GetDBType(dsn)
+		if err != nil {
+			return nil, fmt.Errorf("failed to get database type: %w", err)
+		}
+
+		return mcp.NewToolResultText(dbType), nil
+	})
+
+	s.AddTool(mcp.NewTool(
 		"read_query",
 		mcp.WithDescription("Execute a SELECT query and return the results."),
 		mcp.WithString("query", mcp.Required(), mcp.Description("The SELECT query to execute.")),
@@ -114,18 +126,6 @@ func main() {
 		}
 
 		return mcp.NewToolResultText(message), nil
-	})
-
-	s.AddTool(mcp.NewTool(
-		"list_tables",
-		mcp.WithDescription("Retrieve a list of all table names in the database."),
-	), func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		tables, err := api.ListTables(db)
-		if err != nil {
-			return nil, fmt.Errorf("failed to list tables: %w", err)
-		}
-
-		return mcp.NewToolResultText(fmt.Sprintf("%v", tables)), nil
 	})
 
 	s.AddResourceTemplate(mcp.NewResourceTemplate(

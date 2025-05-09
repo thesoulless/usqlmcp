@@ -23,6 +23,6 @@ run: build.most
 
 test:
 	@echo "Running tests..."
-	@go test -v ./... | tee test.log | less -R
+	@go test -v ./...
 
 .PHONY: all build clean run test
