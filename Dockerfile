@@ -1,5 +1,9 @@
 FROM golang:1.24-alpine AS builder
 
+# Build arguments
+ARG VERSION=0.0.0-dev
+ARG ARCH=amd64
+
 WORKDIR /app
 
 # Install build dependencies
@@ -9,18 +13,19 @@ RUN apk add --no-cache gcc musl-dev
 COPY go.mod go.sum ./
 RUN go mod download
 
-# Copy source code
+# Copy source code and make build script executable
 COPY . .
-
-# Build arguments
-ARG VERSION=0.0.0-dev
-ARG ARCH=amd64
+RUN chmod +x build.sh
 
 # Build the application
 RUN ./build.sh -v ${VERSION} -a ${ARCH}
 
 # Use a smaller image for the final container
 FROM alpine:latest
+
+# Build arguments (needed in this stage too)
+ARG VERSION=0.0.0-dev
+ARG ARCH=amd64
 
 WORKDIR /app
 
