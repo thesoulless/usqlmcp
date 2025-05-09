@@ -41,33 +41,3 @@ func TestGetTableSchema(t *testing.T) {
 		t.Errorf("Expected 2 columns, got %d", len(schema.Columns))
 	}
 }
-
-func TestGetAllSchema(t *testing.T) {
-	db, err := sql.Open("sqlite3", ":memory:")
-	if err != nil {
-		t.Fatalf("Failed to open test database: %v", err)
-	}
-	defer db.Close()
-
-	_, err = db.Exec(`CREATE TABLE another_table (value REAL);`)
-	if err != nil {
-		t.Fatalf("Failed to create test table: %v", err)
-	}
-
-	ctx := context.Background()
-
-	metadata, err := GetAllSchema(ctx, db)
-	if err != nil {
-		t.Fatalf("Failed to get all schema: %v", err)
-	}
-
-	if metadata.TableCount != 1 {
-		t.Errorf("Expected table count to be 1, got %d", metadata.TableCount)
-	}
-	if len(metadata.Tables) != 1 {
-		t.Errorf("Expected 1 table in the Tables list, got %d", len(metadata.Tables))
-	}
-	if metadata.Tables[0].Name != "another_table" {
-		t.Errorf("Expected table name 'another_table', got '%s'", metadata.Tables[0].Name)
-	}
-}

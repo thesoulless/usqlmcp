@@ -157,27 +157,6 @@ func main() {
 		}}, nil
 	})
 
-	s.AddResource(mcp.NewResource(
-		"schema://all",
-		"Get schema information for all tables",
-	), func(ctx context.Context, request mcp.ReadResourceRequest) ([]mcp.ResourceContents, error) {
-		metadata, err := api.GetAllSchema(ctx, db)
-		if err != nil {
-			return nil, fmt.Errorf("failed to get all schema: %w", err)
-		}
-
-		jsonData, err := json.MarshalIndent(metadata, "", "  ")
-		if err != nil {
-			return nil, fmt.Errorf("failed to marshal metadata to JSON: %w", err)
-		}
-
-		return []mcp.ResourceContents{&mcp.TextResourceContents{
-			URI:      request.Params.URI,
-			MIMEType: "application/json",
-			Text:     string(jsonData),
-		}}, nil
-	})
-
 	if err := server.ServeStdio(s); err != nil {
 		log.Fatalf("Server error: %v", err)
 	}

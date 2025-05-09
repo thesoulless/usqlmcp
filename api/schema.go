@@ -79,36 +79,6 @@ func GetTableSchema(ctx context.Context, db *sql.DB, tableName string) (*TableSc
 	}, nil
 }
 
-func GetAllSchema(ctx context.Context, db *sql.DB) (*DatabaseMetadata, error) {
-	tables, err := ListTables(db)
-	if err != nil {
-		return nil, fmt.Errorf("failed to list tables: %w", err)
-	}
-
-	metadata := &DatabaseMetadata{
-		Tables: make([]TableSchema, 0, len(tables)),
-	}
-
-	for _, tableName := range tables {
-		schema, err := GetTableSchema(ctx, db, tableName)
-		if err != nil {
-			return nil, fmt.Errorf("failed to get schema for table %s: %w", tableName, err)
-		}
-		metadata.Tables = append(metadata.Tables, *schema)
-	}
-
-	version, size, err := getDatabaseInfo(ctx, db)
-	if err != nil {
-		return nil, fmt.Errorf("failed to get database info: %w", err)
-	}
-
-	metadata.Version = version
-	metadata.SizeBytes = size
-	metadata.TableCount = len(tables)
-
-	return metadata, nil
-}
-
 func getColumnInfo(ctx context.Context, db *sql.DB, tableName string) ([]ColumnInfo, error) {
 	var exists int
 	err := db.QueryRowContext(ctx, "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name=?", tableName).Scan(&exists)
