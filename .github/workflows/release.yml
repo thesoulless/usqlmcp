@@ -160,6 +160,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Make build script executable
+        run: chmod +x ./build.sh
+
       - name: Install build dependencies
         run: |
           sudo apt-get -qq update
@@ -207,7 +210,6 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
             VERSION=${{ env.VER }}
-            ARCH=amd64
 
   draft_release:
     name: Draft Release
