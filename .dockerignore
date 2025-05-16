@@ -1,0 +1,31 @@
+# Git
+.git
+.gitignore
+.github
+
+# Build artifacts
+build/
+bin/
+
+# Environment
+.envrc
+devenv.*
+.devenv/
+.direnv/
+.cursor/
+.vscode/
+
+# Editor files
+.vscode/
+.idea/
+
+# Documentation
+README.md
+AGENT.md
+
+# Temporary files
+*.log
+*.tmp
+
+# Test data
+test-data/

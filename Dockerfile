@@ -7,18 +7,17 @@ ARG ARCH=amd64
 WORKDIR /app
 
 # Install build dependencies
-RUN apk add --no-cache gcc musl-dev
+RUN apk add --no-cache gcc musl-dev bash coreutils git tar
 
 # Copy go mod files
 COPY go.mod go.sum ./
 RUN go mod download
 
 # Copy source code and make build script executable
-COPY . .
+COPY . /app/
 RUN chmod +x /app/build.sh
 
-# Build the application
-RUN cd /app && ./build.sh -v ${VERSION} -a ${ARCH}
+RUN apk add --no-cache file && cd /app && ./build.sh -v ${VERSION} -a ${ARCH}
 
 # Use a smaller image for the final container
 FROM alpine:latest

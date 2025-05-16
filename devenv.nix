@@ -29,7 +29,22 @@ in
   # processes.cargo-watch.exec = "cargo-watch";
 
   # https://devenv.sh/services/
-  # services.postgres.enable = true;
+  # Test db
+  services.postgres =  {
+        enable = true;
+        listen_addresses = "127.0.0.1";
+        port = 5533;
+        initialScript = ''
+            CREATE ROLE postgres SUPERUSER;
+        '';
+        initialDatabases = [
+            {
+                name = "hamed";
+                user = "hamed";
+                pass = "1234";
+            }
+        ];
+    };
 
   # https://devenv.sh/scripts/
   scripts.hello.exec = ''

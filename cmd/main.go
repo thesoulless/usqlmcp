@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"flag"
 	"fmt"
@@ -126,35 +125,6 @@ func main() {
 		}
 
 		return mcp.NewToolResultText(message), nil
-	})
-
-	s.AddResourceTemplate(mcp.NewResourceTemplate(
-		"schema://{table}",
-		"Get schema information for a specific table",
-		mcp.WithTemplateDescription("Returns schema information for a specific table"),
-		mcp.WithTemplateMIMEType("application/json"),
-	), func(ctx context.Context, request mcp.ReadResourceRequest) ([]mcp.ResourceContents, error) {
-		// Extract table name from URI
-		tableName := request.Params.URI[len("schema://"):]
-		if tableName == "" {
-			return nil, errors.New("table name is required in schema URI")
-		}
-
-		schema, err := api.GetTableSchema(ctx, db, tableName)
-		if err != nil {
-			return nil, fmt.Errorf("failed to get table schema: %w", err)
-		}
-
-		jsonData, err := json.MarshalIndent(schema, "", "  ")
-		if err != nil {
-			return nil, fmt.Errorf("failed to marshal schema to JSON: %w", err)
-		}
-
-		return []mcp.ResourceContents{&mcp.TextResourceContents{
-			URI:      request.Params.URI,
-			MIMEType: "application/json",
-			Text:     string(jsonData),
-		}}, nil
 	})
 
 	if err := server.ServeStdio(s); err != nil {
