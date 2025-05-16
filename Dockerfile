@@ -6,7 +6,7 @@ ARG VERSION=0.0.0-dev
 WORKDIR /app
 
 # Install build dependencies
-RUN apk add --no-cache gcc musl-dev bash coreutils git tar
+RUN apk add --no-cache gcc g++ musl-dev bash coreutils git tar
 
 # Copy go mod files
 COPY go.mod go.sum ./
