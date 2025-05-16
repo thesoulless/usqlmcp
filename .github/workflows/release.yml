@@ -218,7 +218,6 @@ jobs:
       - build_for_macos
       - build_for_macos_universal
       - build_for_windows
-      - build_for_docker
     runs-on: ubuntu-24.04
     steps:
       - name: Download artifacts
