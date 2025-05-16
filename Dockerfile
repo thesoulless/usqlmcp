@@ -23,6 +23,7 @@ FROM alpine:latest
 
 # Build arguments (needed in this stage too)
 ARG VERSION=0.0.0-dev
+ARG ARCH=
 
 WORKDIR /app
 
@@ -30,7 +31,8 @@ WORKDIR /app
 RUN apk add --no-cache ca-certificates
 
 # Copy the binary from builder
-COPY --from=builder /app/build/linux/${ARCH}/${VERSION#v}/usqlmcp /app/usqlmcp
+COPY --from=builder /app/build/linux/*/${VERSION#v}/usqlmcp /app/usqlmcp
+
 
 # Create a volume for the database
 VOLUME ["/data"]
