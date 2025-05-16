@@ -60,6 +60,16 @@ Add the following configuration to your ~/.cursor/mcp.json file or configure via
 }
 ```
 
+## Docker Usage
+
+You can also run usqlmcp using Docker:
+
+```bash
+docker run -i --rm ghcr.io/thesoulless/usqlmcp:latest --dsn postgres://username:password@host.docker.internal:5432/dbname?sslmode=disable
+```
+
+Note: When connecting to a database on your host machine, use `host.docker.internal` instead of `localhost` or `127.0.0.1`.
+
 ## Acknowledgments
 
 This project depends on [usql](https://github.com/xo/usql), a universal command-line interface for SQL databases.
