@@ -23,7 +23,6 @@ FROM alpine:latest
 
 # Build arguments (needed in this stage too)
 ARG VERSION=0.0.0-dev
-ARG ARCH=amd64
 
 WORKDIR /app
 
