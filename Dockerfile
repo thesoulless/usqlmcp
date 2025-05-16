@@ -31,7 +31,7 @@ WORKDIR /app
 RUN apk add --no-cache ca-certificates
 
 # Copy the binary from builder
-COPY --from=builder /app/build/linux/${ARCH}/${VERSION}/usqlmcp /app/usqlmcp
+COPY --from=builder /app/build/linux/${ARCH}/${VERSION#v}/usqlmcp /app/usqlmcp
 
 # Create a volume for the database
 VOLUME ["/data"]
