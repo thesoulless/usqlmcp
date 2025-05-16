@@ -2,7 +2,6 @@ FROM golang:1.24-alpine AS builder
 
 # Build arguments
 ARG VERSION=0.0.0-dev
-ARG ARCH=amd64
 
 WORKDIR /app
 
@@ -17,7 +16,7 @@ RUN go mod download
 COPY . /app/
 RUN chmod +x /app/build.sh
 
-RUN apk add --no-cache file && cd /app && ./build.sh -v ${VERSION} -a ${ARCH}
+RUN apk add --no-cache file && cd /app && ./build.sh -v ${VERSION}
 
 # Use a smaller image for the final container
 FROM alpine:latest
