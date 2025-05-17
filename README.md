@@ -64,6 +64,16 @@ docker run -i --rm ghcr.io/thesoulless/usqlmcp:latest --dsn postgres://username:
 
 Note: When connecting to a database on your host machine, use `host.docker.internal` instead of `localhost` or `127.0.0.1`.
 
+### Example with SQLite and Volume Mounting
+
+To use a SQLite database file from your local machine:
+
+```bash
+docker run -i --rm -v /path/to/local/mydatabase.db:/data/mydatabase.db ghcr.io/thesoulless/usqlmcp:latest --dsn sqlite3:///data/mydatabase.db
+```
+
+This mounts just your local SQLite database file directly into the container, providing access to only what's needed.
+
 ## Acknowledgments
 
 This project depends on [usql](https://github.com/xo/usql), a universal command-line interface for SQL databases.
