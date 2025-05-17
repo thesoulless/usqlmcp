@@ -10,12 +10,6 @@ A universal SQL MCP (Model Context Protocol).
   - `read_query`: Execute a `SELECT` query and return the results.
   - `write_query`: Execute an `INSERT`, `UPDATE`, `DELETE`, or `ALTER` query and return the number of affected rows.
   - `create_table`: Execute a `CREATE TABLE` query to define new tables in the database.
-  - `list_tables`: Retrieve a list of all table names in the database.
-  - `describe_table`: Retrieve schema information for a specific table.
-
-- **Resources**
-  - `schema://all`: Get schema information for all tables
-  - `schema://{table}`: Get schema information for a specific table
 
 ## Installing
 `usqlmcp` is available [via Release][]
