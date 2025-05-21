@@ -56,23 +56,50 @@ Add the following configuration to your ~/.cursor/mcp.json file or configure via
 
 ## Docker Usage
 
-You can also run usqlmcp using Docker:
+You can configure usqlmcp to run via Docker in Cursor by specifying the appropriate command and arguments in your MCP JSON configuration.
 
-```bash
-docker run -i --rm ghcr.io/thesoulless/usqlmcp:latest --dsn postgres://username:password@host.docker.internal:5432/dbname?sslmode=disable
+### Example: Postgres (Docker)
+
+Add the following to your `~/.cursor/mcp.json`:
+
+```json
+{
+    "mcpServers": {
+        "usqlmcp": {
+            "command": "docker",
+            "args": [
+                "run", "-i", "--rm",
+                "ghcr.io/thesoulless/usqlmcp:latest",
+                "--dsn", "postgres://username:password@host.docker.internal:5432/dbname?sslmode=disable"
+            ]
+        }
+    }
+}
 ```
 
 Note: When connecting to a database on your host machine, use `host.docker.internal` instead of `localhost` or `127.0.0.1`.
 
-### Example with SQLite and Volume Mounting
+### Example: SQLite with Volume Mounting (Docker)
 
-To use a SQLite database file from your local machine:
+To use a SQLite database file from your local machine, add the following to your `~/.cursor/mcp.json`:
 
-```bash
-docker run -i --rm -v /path/to/local/mydatabase.db:/data/mydatabase.db ghcr.io/thesoulless/usqlmcp:latest --dsn sqlite3:///data/mydatabase.db
+```json
+{
+    "mcpServers": {
+        "usqlmcp": {
+            "command": "docker",
+            "args": [
+                "run", "-i", "--rm",
+                "-v", "/path/to/local/mydatabase.db:/data/mydatabase.db",
+                "ghcr.io/thesoulless/usqlmcp:latest",
+                "--dsn", "sqlite3:///data/mydatabase.db"
+            ]
+        }
+    }
+}
 ```
 
-This mounts just your local SQLite database file directly into the container, providing access to only what's needed.
+This mounts your local SQLite database file directly into the container, providing access to only what's needed.
 
 ## Acknowledgments
 
