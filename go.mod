@@ -5,7 +5,7 @@ go 1.24
 toolchain go1.24.1
 
 require (
-	github.com/mark3labs/mcp-go v0.21.0
+	github.com/mark3labs/mcp-go v0.31.0
 	github.com/mattn/go-sqlite3 v1.14.27
 	github.com/stretchr/testify v1.10.0
 	github.com/xo/dburl v0.23.6
@@ -243,6 +243,7 @@ require (
 	github.com/snowflakedb/gosnowflake v1.13.2 // indirect
 	github.com/soniakeys/quant v1.0.0 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
+	github.com/spf13/cast v1.7.1 // indirect
 	github.com/stretchr/objx v0.5.2 // indirect
 	github.com/thda/tds v0.1.7 // indirect
 	github.com/trinodb/trino-go-client v0.322.0 // indirect

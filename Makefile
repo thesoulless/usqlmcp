@@ -16,6 +16,7 @@ build.most:
 clean:
 	@echo "Cleaning up..."
 	rm -f $(BINARY_NAME)
+	@rm -rf build/darwin
 
 # Run the application
 run: build.most
